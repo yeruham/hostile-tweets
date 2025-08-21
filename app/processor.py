@@ -13,6 +13,8 @@ class Processor:
         self.df = data_frame
         self.text_column = text_column
 
+
+
     def add_rarest_words(self):
         text_series = self.df[self.text_column]
         rarest_words = []
@@ -45,7 +47,23 @@ class Processor:
         pass
 
     def add_weapons_detected(self, weapons: list):
-        pass
+        text_series = self.df[self.text_column]
+        weapons_detected = []
+        for text in text_series:
+            words = text.split()
+            weapon_found = False
+            for word in words:
+                if word in weapons:
+                    print(word)
+                    weapons_detected.append(word)
+                    weapon_found = True
+                    break
+
+            if not weapon_found:
+                weapons_detected.append("")
+
+        self.df.loc[:, 'weapons_detected'] = weapons_detected
+
 
 
 
