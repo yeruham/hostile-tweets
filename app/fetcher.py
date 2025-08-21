@@ -32,9 +32,3 @@ class DAL_atlas_mongo:
     def close_connection(self):
         if self.client:
             self.client.close()
-
-# dal = DAL_atlas_mongo("IRGC", "iraniraniran", "IranMalDB", "tweets")
-# dal.open_connection()
-# data = dal.get_all()
-# print(data)
-# dal.close_connection()
