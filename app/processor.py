@@ -2,8 +2,8 @@ import pandas as pd
 # Import dependencies
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-nltk.download('vader_lexicon')# Compute sentiment labels
-
+#nltk.download('vader_lexicon')# Compute sentiment labels
+nltk.data.path.append("/usr/local/share/nltk_data")
 
 
 class Processor:

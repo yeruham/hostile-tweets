@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hostile-tweets
+  labels:
+    app: hostile-tweets
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: hostile-tweets
+  template:
+    metadata:
+      labels:
+        deployment: hostile-tweets
+    spec:
+      containers:
+        - name: hostile-tweets
+          image: 'docker.io/yeruham/hostile-tweets@sha256:a7580ddff86e44097c8896ceb8f163cf4bdc9e3ba5115410b7ebb25adfad4851'
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hostile-tweets
+  namespace: y0583207549-dev
+  labels:
+    app: hostile-tweets
+spec:
+  clusterIP: 172.30.103.151
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+  selector:
+    deployment: hostile-tweets

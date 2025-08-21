@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: hostile-tweets
+  namespace: y0583207549-dev
+  labels:
+    app: hostile-tweets
+spec:
+  host: hostile-tweets-y0583207549-dev.apps.rm1.0a51.p1.openshiftapps.com
+  to:
+    kind: Service
+    name: hostile-tweets
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
