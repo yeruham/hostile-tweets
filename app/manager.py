@@ -1,6 +1,7 @@
 import pandas as pd
 from fetcher import DAL_atlas_mongo
 from processor import Processor
+import type_conversion as con_type
 
 
 class Manager:
@@ -9,29 +10,33 @@ class Manager:
         self.DAL = DAL_atlas_mongo(user, password, database, collection)
         self.processor = None
         self.data = None
-        self.df = None
 
 
     def fetch_data(self):
         if self.DAL:
-            self.DAL.open_connection()
-            self.data = self.DAL.get_all()
-            self.DAL.close_connection()
+            connect = self.DAL.open_connection()
+            if connect:
+                self.data = self.DAL.get_all()
+                self.DAL.close_connection()
+            return connect
 
-
-    def convert_data_to_df(self):
-        if self.data:
-            self.df = pd.DataFrame(self.data)
 
 
     def run_processes(self, text_key: str, weapons: list):
-        if self.df:
-            self.processor = Processor(self.df, text_key)
-            self.processor.add_rarest_word()
-            self.processor.add_sentiment()
-            self.processor.add_weapons_detected(weapons)
+        if self.data is not None:
+            self.data = con_type.convert_to_df(self.data)
+            try:
+                self.processor = Processor(self.data, text_key)
+                self.processor.add_rarest_word()
+                self.processor.add_sentiment()
+                self.processor.add_weapons_detected(weapons)
+            except:
+                return {"Error: the processes not working"}
+
 
 
     def get_processed_data(self):
-        return self.df
+        if isinstance(self.data, pd.DataFrame):
+            json_processed_data = con_type.convert_df_to_json(self.data)
+            return json_processed_data
 
