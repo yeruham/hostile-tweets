@@ -26,7 +26,11 @@ def run_manager(user, password, database, collection,  text_key, weapons):
 
 
 def get_weapons():
-    with open('../data/weapon_list.txt', 'r') as f:
+    if os.path.exists('../data/weapon_list.txt'):
+        path = '../data/weapon_list.txt'
+    else:
+        path = 'weapon_list.txt'
+    with open(path, 'r') as f:
         weapons = f.read().split('\n')
     return weapons
 
