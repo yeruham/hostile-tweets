@@ -13,8 +13,33 @@ class Processor:
         self.df = data_frame
         self.text_column = text_column
 
-    def add_rarest_word(self):
-        pass
+    def add_rarest_words(self):
+        text_series = self.df[self.text_column]
+        rarest_words = []
+        for text in text_series:
+            num_by_words = {}
+            words = text.split()
+            for word in words:
+                try:
+                    num_by_words[word] += 1
+                except:
+                    num_by_words[word] = 1
+
+            rarest_word = ""
+            num_by_word = len(words) + 1
+            for k, v in num_by_words.items():
+                if num_by_word == 1:
+                    break
+                if v < num_by_word:
+                    rarest_word = k
+                    num_by_word = v
+
+            rarest_words.append(rarest_word)
+
+        self.df.loc[:, 'rarest_word'] = rarest_words
+
+
+
 
     def add_sentiment(self):
         pass

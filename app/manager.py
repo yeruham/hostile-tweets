@@ -27,7 +27,7 @@ class Manager:
             self.data = con_type.convert_to_df(self.data)
             try:
                 self.processor = Processor(self.data, text_key)
-                self.processor.add_rarest_word()
+                self.processor.add_rarest_words()
                 self.processor.add_sentiment()
                 self.processor.add_weapons_detected(weapons)
             except:
