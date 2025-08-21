@@ -30,6 +30,7 @@ class Manager:
                 self.processor.add_rarest_words()
                 self.processor.add_sentiment()
                 self.processor.add_weapons_detected(weapons)
+                #self.data = self.data.rename(columns={text_key: "original_text"})
             except:
                 return {"Error: the processes not working"}
 
